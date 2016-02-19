@@ -1,0 +1,40 @@
+#!/usr/bin/env perl
+# enczip.pl - 특정 charset로 압축된 압축 파일을 풀어줍니다.
+# $ enczip.pl [파일 이름] [인코딩]
+use 5.010;
+use utf8;
+use strict;
+use warnings;
+
+use Encode qw/encode decode/;
+use Archive::Zip;
+
+BEGIN {
+    binmode STDOUT, ":encoding(utf-8)";
+    local $| = 1;
+}
+
+unless (@ARGV) {
+    say "usage: enczip [filename] [enc]";
+    exit;
+}
+
+my $filename = $ARGV[0];
+my $encode   = $ARGV[1] || "cp949";
+my $zip = Archive::Zip->new($filename);
+die "파일을 열 수 없었습니다!" unless $zip;
+
+my @members = $zip->members;
+
+# $zip->extractMember($_, decode($encode, $_->fileName)) for @members;
+
+for (0..(scalar @members) - 1) {
+    my $count = $_;
+    my $file  = $members[$_];
+    my $newFileName = decode($encode, $file->fileName);    
+    printf("[%d / %d] 압축 푸는 중 : %s\n", $count + 1, scalar @members, $newFileName); 
+
+    eval {
+        $zip->extractMember($file, $newFileName);
+    }
+}

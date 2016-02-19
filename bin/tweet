@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+use 5.010;
+use utf8;
+use strict;
+use Encode qw/decode/;
+use CheeseSkel::Twitter;
+
+sub usage () {
+    return "usage : tweet [text]"
+}
+
+unless (@ARGV) {
+    say usage();
+    exit;
+}
+
+my $twitter = CheeseSkel::Twitter->instance;
+my $content;
+
+chomp $ARGV[0];
+if ($ARGV[0] eq "-") {
+    $content .= $_ while (($_ = <STDIN>) =~ /\S/);
+} else {
+    $content = join $", @ARGV;
+}
+
+say "Posting..";
+$twitter->post(decode("utf-8", $content));

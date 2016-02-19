@@ -1,0 +1,49 @@
+# .zshrc
+
+source $CHEESESKEL_HOME/zsh/zshrc-grml
+
+autoload -Uz promptinit vcs_info colors && colors
+
+promptinit
+prompt off
+setopt prompt_subst
+
+export RPROMPT="[%T%{$reset_color%}]"
+
+export PS2="' ')? "
+export RPS2='['"%_"']'
+
+function precmd() {
+    # TODO: http://briancarper.net/blog/570/git-info-in-your-zsh-prompt 참조해서 더 설정하기
+    ZSH_THEME_GIT_PROMPT_PREFIX="[%{$fg[cyan]%}git:(%{$fg[red]%}"
+    ZSH_THEME_GIT_PROMPT_SUFFIX="] %{$reset_color%}"
+    ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[yellow]%}!%{$reset_color%}"
+    ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%})%{$reset_color%}"
+    zstyle ':vcs_info:*' check-for-changes true
+
+    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
+        zstyle ':vcs_info:*' unstagedstr $ZSH_THEME_GIT_PROMPT_DIRTY
+    } else {
+        ZSH_THEME_GIT_PROMPT_SUFFIX=$ZSH_THEME_GIT_PROMPT_DIRTY$ZSH_THEME_GIT_PROMPT_SUFFIX
+    }
+
+
+    zstyle ':vcs_info:git*' formats $ZSH_THEME_GIT_PROMPT_PREFIX"%b%{$fg[cyan]%})%u"$ZSH_THEME_GIT_PROMPT_SUFFIX
+    vcs_info
+
+    PROMPT="[%(?.%{$fg_bold[green]%} OK .%{$fg_bold[red]%}fail)%{$reset_color%}]─[%{$fg_bold[yellow]%}%n%{$fg_bold[yellow]%}@%m%{$reset_color%} : %{$fg_bold[blue]%}%~%{$reset_color%}]$(_battery_status)
+"'${vcs_info_msg_0_}'"' ')> "
+}
+
+####################################
+# Definitions
+ 
+alias rm='rm -Iv'
+alias perldoc='perldoc -oman'
+alias reload="echo -n "'"reloading shell ($SHELL)..\r"'"; exec $SHELL"
+alias vi='vim'
+
+export WINEARCH=win32
+export PATH=$PATH:$CHEESESKEL_HOME/bin
+
+export PERL5LIB=$PERL5LIB:$CHEESESKEL_HOME/perllib
