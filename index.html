@@ -4,14 +4,107 @@ use 5.010;
 use strict;
 use warnings;
 
-
+# TODO: 인스톨러 작성
+die "Not Implemented Yet! X(";
 
 __DATA__
 -->
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width">
+<title>CheeseSkel</title>
+<style>
+@import url(https://fonts.googleapis.com/css?family=McLaren);
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0; padding: 0;
+}
+
+html, body {
+    color: transparent;
+    padding: 0; margin: 0;
+
+    font-family: 'Helvetica', 'Arial', 'sans';
+}
+
+
+html:before {
+    content: '';
+    position: fixed;
+    display: block;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+       
+    background: linear-gradient(to bottom, rgba(255,235,76,1) 0%,rgba(255,203,50,1) 100%); 
+
+    z-index: -1;
+}
+
+
+main {
+    position: absolute;
+    left: 0; top: 0;
+
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+
+    padding: 1em;
+
+
+    color: #333;
+}
+
+article {
+    background: white;
+
+    padding: 1em;
+
+    border-radius: 0.75em;
+
+    box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.16);
+}
+
+h1.cheeseskel {
+    font-family: 'McLaren';
+    font-size: 2em;
+}
+
+.header {
+    padding: 0.25em 0;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #ccc;
+
+}
+
+pre {
+    white-space: pre-wrap; 
+
+    max-width: 640px;
+    padding: 1em;
+
+    background: white;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.16);
+}
+
+pre.shell:before {
+    content: '$ ';
+}
+</style>
 </head>
 <body>
+<main>
+    <article>
+        <h1 class="cheeseskel header">CheeseSkel</h1>
+        <h2>설치</h2>
+        <p>
+            아래 명령은 설치 스크립트를 다운로드 받아서 Perl 인터프리터로 스크립트를 실행시킵니다. <br>
+            <b>※ URL을 신뢰하시는 경우에만 실행하십시오. 내용이 의심되는 경우 이 페이지의 소스를 직접 확인하십시오.</b>
+        </p>
+        <pre class="shell">wget -O- https://unstabler.github.io/CheeseSkel/index.html | perl</pre>
+    </article>
+</main>
 </body>
 </html>
