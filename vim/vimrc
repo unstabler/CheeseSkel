@@ -1,7 +1,7 @@
 " \ ' ')/
 
 function! BEGIN () 
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
 endfunction
 
 function! Init ()
@@ -36,11 +36,20 @@ function! Init ()
 
     " 파일 변경시 자동 로드
     set autoread
+
+    set showmatch
+    set exrc
+    set secure
+   
+    set mouse=a
+    set cindent
+    set autoindent
+    set clipboard=unnamedplus
+
+
     
     
     
-    call MapFileType()
-    call MapKeys()
     call NeoBundleInit()
 
     let termType = $TERM
@@ -57,112 +66,46 @@ function! Init ()
 endfunction
 
 function! NeoBundleInit() 
-    call neobundle#begin(expand('~/.vim/bundle/'))
-        NeoBundleFetch 'Shougo/neobundle.vim'
-
-        NeoBundle "tyru/caw.vim"
-        NeoBundle "Shougo/neocomplete.vim"
-        NeoBundle "osyo-manga/vim-marching"
-        " NeoBundle "c9s/perlomni.vim"
-        NeoBundle "queyenth/oxeded.vim"
-        NeoBundle "vim-jp/cpp-vim" , { 'autoload': { 'filetypes': 'cpp' } }
-    call neobundle#end()
-
-    filetype plugin indent on
-    NeoBundleCheck
-
-    
-    " neocomplete config 
-        " enable neocomplete at startup
-        let g:neocomplete#enable_at_startup = 1
-        " do not skip autocompletion 
-        let g:neocomplete#skip_auto_completion_time = ""
-        let g:neocomplete#sources#syntax#min_keyword_length = 3
-        let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-        let g:neocomplete#enable_smart_case = 1
-
-        " Define keyword.
-        if !exists('g:neocomplete#keyword_patterns')
-            let g:neocomplete#keyword_patterns = {}
-        endif
-        let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-
-
-
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-          let g:neocomplete#sources#omni#input_patterns = {}
-        endif
-
-        if !exists('g:neocomplete#force_omni_input_patterns')
-          let g:neocomplete#force_omni_input_patterns = {}
-        endif
-
-        autocmd FileType cpp setlocal path=.,/usr/include,/usr/local/include
-        autocmd FileType c   setlocal path=.,/usr/include,/usr/local/include
-
-
-        let g:neocomplete#force_omni_input_patterns.c =
-              \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-        let g:neocomplete#force_omni_input_patterns.cpp =
-              \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-        let g:neocomplete#force_omni_input_patterns.objc =
-              \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-        let g:neocomplete#force_omni_input_patterns.objcpp =
-              \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-        "let g:neocomplete#sources#omni#input_patterns.perl =
-        "      \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
-    " end
-    
-    " vim-marching config
-        let g:marching_backend = "sync_clang_command"
-        let g:marching_clang_command_option="-std=c++14"
-        
-        
-        let g:clang_complete_auto = 0
-        let g:clang_auto_select = 0
-        let g:clang_default_keymappings = 0
-
-    " end
-
-endfunction
-
-function! MapFileType() 
-    " Perl Mojolicious Template
-    autocmd BufRead,BufNewFile *.html.ep set filetype=html
-endfunction
-
-function! MapKeys() 
-    map <leader>c :call CommentLines(1)<CR>
-    map <leader>C :call CommentLines(0)<CR>
-
-    " vimrc 다시 불러오기
-    map <leader>R :so $MYVIMRC<CR>
-endfunction
-
-function! CommentLines(comment) range
-    " OMGWTF
-    if &filetype == "perl" || &filetype == "python" " is Perl/Python script file
-        if a:comment == 1
-            execute a:firstline . "," . a:lastline . 's/^/# /'
-        else
-            execute a:firstline . "," . a:lastline . 's/^# //'
-        endif
-    else
-        if a:comment == 1
-            execute a:firstline . "," . a:lastline . 's/^/\/\/ /'
-        else
-            execute a:firstline . "," . a:lastline . 's/^\/\/ //'
-        endif
+    "dein Scripts-----------------------------
+    if &compatible
+      set nocompatible               " Be iMproved
     endif
-endfunction
 
-function! HelloPerl() 
-perl << HELLOPERL
-    # http://vimdoc.sourceforge.net/htmldoc/if_perl.html
-    VIM::Msg("Hello, World!");
-HELLOPERL
+    " Required:
+
+    " Required:
+    if dein#load_state(expand("$HOME/.vim/bundles"))
+      call dein#begin(expand("$HOME/.vim/bundles"))
+
+      " Let dein manage dein
+      " Required:
+      call dein#add(expand("$HOME/.vim/bundles/repos/github.com/Shougo/dein.vim"))
+
+      " Add or remove your plugins here:
+      call dein#add('Shougo/neosnippet.vim')
+      call dein#add('Shougo/neosnippet-snippets')
+      call dein#add('othree/yajs.vim')
+      call dein#add('leafgarland/typescript-vim')
+      call dein#add('posva/vim-vue')
+
+      " You can specify revision/branch/tag.
+      call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+      " Required:
+      call dein#end()
+      call dein#save_state()
+    endif
+
+    " Required:
+    filetype plugin indent on
+    syntax enable
+
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+      call dein#install()
+    endif
+
+    "End dein Scripts-------------------------
 endfunction
 
 call Init()

@@ -46,7 +46,7 @@ sub load_token {
 
     unless (-e DEFAULT_TOKEN_PATH) {
         $token = $self->request_new_token;
-        $self->write_token($token);
+        $self->write_token($token, DEFAULT_TOKEN_PATH);
     } else {
         $token = $self->read_token;
     }

@@ -31,7 +31,7 @@ function precmd() {
     zstyle ':vcs_info:git*' formats $ZSH_THEME_GIT_PROMPT_PREFIX"%b%{$fg[cyan]%})%u"$ZSH_THEME_GIT_PROMPT_SUFFIX
     vcs_info
 
-    PROMPT="[%(?.%{$fg_bold[green]%} OK .%{$fg_bold[red]%}fail)%{$reset_color%}]─[%{$fg_bold[yellow]%}%n%{$fg_bold[yellow]%}@%m%{$reset_color%} : %{$fg_bold[blue]%}%~%{$reset_color%}]$(_battery_status)
+    PROMPT="[%(?.%{$fg_bold[green]%} OK .%{$fg_bold[red]%}fail)%{$reset_color%}]─[%{$fg_bold[yellow]%}%n%{$fg_bold[yellow]%}@%m%{$reset_color%} : %{$fg_bold[blue]%}%~%{$reset_color%}]
 "'${vcs_info_msg_0_}'"' ')> "
 }
 

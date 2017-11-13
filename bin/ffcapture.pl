@@ -39,10 +39,6 @@ sub check_dependencies {
         $apps{$_} = $apppath;
     }
 
-    unless (check_x11grab()) {
-        die "ffmpeg에서 x11grab이 활성화 되어있지 않습니다. --enable-x11grab 옵션을 넣고 빌드해 주십시오.";
-    }
-
     $options{display} = $ENV{DISPLAY};
     die '$DISPLAY not defined. Please run this script on X11.' unless $options{display};
 
