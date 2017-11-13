@@ -1,2 +1,7 @@
 *.swp
 *.swo
+
+installer/fatlib
+installer/installer.dist.pl
+fatpacker.trace
+packlists
