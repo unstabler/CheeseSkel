@@ -58,7 +58,8 @@ function! Init ()
         " 256색
         set t_Co=256
         "colorscheme oxeded
-        colorscheme elflord
+        colorscheme dracula
+        hi Normal guibg=NONE ctermbg=NONE
     else 
         colorscheme elflord
     endif
@@ -87,6 +88,7 @@ function! NeoBundleInit()
       call dein#add('othree/yajs.vim')
       call dein#add('leafgarland/typescript-vim')
       call dein#add('posva/vim-vue')
+      call dein#add('dracula/vim')
 
       " You can specify revision/branch/tag.
       call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
