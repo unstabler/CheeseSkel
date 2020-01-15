@@ -57,7 +57,7 @@ function! Init ()
     if termType != "linux"
         " 256색
         set t_Co=256
-        "colorscheme oxeded
+        " colorscheme oxeded
         colorscheme dracula
         hi Normal guibg=NONE ctermbg=NONE
     else 
@@ -83,15 +83,7 @@ function! NeoBundleInit()
       call dein#add(expand("$HOME/.vim/bundles/repos/github.com/Shougo/dein.vim"))
 
       " Add or remove your plugins here:
-      call dein#add('Shougo/neosnippet.vim')
-      call dein#add('Shougo/neosnippet-snippets')
-      call dein#add('othree/yajs.vim')
-      call dein#add('leafgarland/typescript-vim')
-      call dein#add('posva/vim-vue')
       call dein#add('dracula/vim')
-
-      " You can specify revision/branch/tag.
-      call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
       " Required:
       call dein#end()
