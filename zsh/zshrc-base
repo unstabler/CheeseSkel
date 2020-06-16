@@ -38,7 +38,7 @@ function precmd() {
 ####################################
 # Definitions
  
-alias rm='rm -Iv'
+alias rm='rm -v'
 alias perldoc='perldoc -oman'
 alias reload="echo -n "'"reloading shell ($SHELL)..\r"'"; exec $SHELL"
 alias vi='vim'
