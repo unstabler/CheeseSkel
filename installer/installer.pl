@@ -18,7 +18,7 @@ BEGIN {
 my %DEP_RESOLVED = ();
 
 sub DEP_REQUIREMENTS () { qw/git wget zsh vim/;  }
-sub DEP_OPTIONAL     () { qw/ffmpeg xwininfo tmux mpv/; }
+sub DEP_OPTIONAL     () { qw/ffmpeg xwininfo tmux mpv nvim/; }
 
 sub MSG_E($)  { sprintf("[%s오류%s] %s\n", BRIGHT_RED,    RESET, shift); }
 sub MSG_W($)  { sprintf("[%s경고%s] %s\n", BRIGHT_YELLOW, RESET, shift); }
@@ -109,10 +109,11 @@ say "====================";
 check_dependencies();
 install('copy', 'zshrc 설정 파일', './zsh/zshrc.sample', $ENV{HOME}, '.zshrc');
 install('link', 'vimrc 설정 파일', './vim/vimrc', $ENV{HOME}, '.vimrc');
+install('link', 'nvimrc 설정 파일', './neovim/nvimrc', $ENV{HOME} . '/.config/nvim', 'init.vim');
 install_exec('dein.vim 설치', [
     ['wget', '-O', '/tmp/dein-installer.sh', 'https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh'],
-    ['sh', '/tmp/dein-installer.sh', $ENV{HOME} . '/.vim/bundles']
-]);
+    ['sh', '/tmp/dein-installer.sh', $ENV{HOME} . '/.cache/dein']
+]) if -e $DEP_RESOLVED{nvim};
 install('copy', 'fontconfig 설정 파일', './fontconfig/fonts.conf', $ENV{HOME} . '/.config/fontconfig', 'fonts.conf');
 install('copy', 'mpv 설정 파일', './mpv/mpv.conf', $ENV{HOME} . '/.config/mpv', 'mpv.conf');
 install_exec('zsh로 기본 쉘 변경', [

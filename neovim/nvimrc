@@ -1,0 +1,96 @@
+" \ ' ')/
+
+function! BEGIN () 
+    if &compatible
+        set nocompatible
+    endif
+    set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+endfunction
+
+function! Init ()
+    if has('vim_starting')
+        call BEGIN()
+    endif
+
+    " 구문 강조
+    sy enable
+
+    " 줄 번호 표시
+    set number numberwidth=4
+
+    " 탭 대신 스페이스
+    set expandtab 
+
+    " 탭 길이 설정
+    set shiftwidth=4 tabstop=4 softtabstop=4 
+
+    " 검색 결과를 하이라이트
+    set hlsearch 
+
+    " 호환 모드 사용하지 않음
+    set nocompatible
+
+    " 커서 위치 표시  
+    set ruler
+
+    " 터미널 제목 설정
+    set title
+
+
+    " 파일 변경시 자동 로드
+    set autoread
+
+    set showmatch
+    set exrc
+    set secure
+   
+    set mouse=a
+    set cindent
+    set autoindent
+    set clipboard=unnamedplus
+    
+    call DeinInit()
+
+    let termType = $TERM
+
+    if termType != "linux"
+        " 256색
+        set t_Co=256
+        " colorscheme oxeded
+        colorscheme dracula
+        hi Normal guibg=NONE ctermbg=NONE
+    else 
+        colorscheme elflord
+    endif
+
+endfunction
+
+function! DeinInit() 
+    " Required:
+    if dein#load_state(expand("$HOME/.cache/dein"))
+      call dein#begin(expand("$HOME/.cache/dein"))
+
+      " Let dein manage dein
+      " Required:
+      call dein#add(expand("$HOME/.cache/dein/repos/github.com/Shougo/dein.vim"))
+      " Add or remove your plugins here:
+      call dein#add('dracula/vim')
+
+      " Required:
+      call dein#end()
+      call dein#save_state()
+    endif
+
+    " Required:
+    filetype plugin indent on
+    syntax enable
+
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+      call dein#install()
+    endif
+
+    "End dein Scripts-------------------------
+endfunction
+
+call Init()
