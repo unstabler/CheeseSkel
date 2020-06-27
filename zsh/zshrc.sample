@@ -2,8 +2,13 @@ export CHEESESKEL_HOME=$HOME/.skel
 
 source $CHEESESKEL_HOME/zsh/zshrc-base
 
+
+export PATH=$PATH:$HOME/bin
+
 # TODO: 니코니코 동화의 계정을 설정합니다.
 #
 # export NICOVIDEO_USERNAME=MEERU_ADORESU@DOMAIN
 # export NICOVIDEO_PASSWORD=PASUWAADO
 
+alias vi=nvim
+alias vim=nvim
