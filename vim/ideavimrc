@@ -1,0 +1,15 @@
+set number numberwidth=4
+set expandtab
+set shiftwidth=4 tabstop=4 softtabstop=4
+set hlsearch
+set nocompatible
+set ruler
+set title
+set autoread
+set title
+set autoread
+set showmatch
+set cindent
+set clipboard=unnamedplus
+set autoindent
+
