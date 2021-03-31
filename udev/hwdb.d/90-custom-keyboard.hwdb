@@ -1,0 +1,5 @@
+evdev:input:*
+    KEYBOARD_KEY_b8=hangeul
+    KEYBOARD_KEY_3a=leftctrl
+    KEYBOARD_KEY_70039=leftctrl
+    KEYBOARD_KEY_700e6=hangeul
